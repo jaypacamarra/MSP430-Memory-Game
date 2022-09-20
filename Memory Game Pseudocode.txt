@@ -1,0 +1,50 @@
+start game
+set round to 1
+display next round
+
+while not game over:
+	start round - get sequence
+	display sequence to remember
+	game over = check user input
+	if(!game over)
+		increment round by 1
+		display next round
+display game over
+display score = round
+restart game
+
+
+check user input function:
+	init number of user input 	to 0
+	init user input sequence var 	to 0
+	while number of user input != round number:		
+		if user presses red button:
+			user input sequence var = (1 << number of user input) | 0x1
+			increment number of user input
+		else user presses green button:
+			user input sequence var = (1 << number of user input) & ~0x1
+			increment number of user input
+	return (round number & sequence) & user input sequence var
+
+user press red button function:
+	if red button pressed:
+		wait debounce time
+		return if red button still pressed		
+
+user press green button function:
+	if green button pressed:
+		wait debounce time
+		return if green button still pressed
+
+start round - get sequence function:
+	while no button pressed:
+		press any button to start round - saves timer0 count for random sequence	
+		break;
+
+display next round function:
+	LCD display "ROUND", position 1-5
+	LCD display  round , position 6
+	wait 700 ms
+	LCD display "GO", position 1-2
+	wait 700 ms
+
